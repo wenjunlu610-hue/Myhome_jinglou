@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的老家 - 乡愁与味蕾</title>
+    <title>我的老家 - 经楼镇</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&display=swap');
@@ -118,7 +118,7 @@
                 <div class="flex justify-center items-center bg-white p-4 rounded-xl shadow-inner">
                     <img id="modal-qrcode" src="" alt="产品二维码" class="w-48 h-48 object-contain">
                 </div>
-                <p class="mt-4 text-sm text-stone-600">如需选购，请扫一扫二维码</p>
+                <p class="mt-4 text-sm text-stone-600">如需选购，请长按识别扫一扫二维码</p>
             </div>
         </div>
     </div>
@@ -149,7 +149,7 @@
         // 加载数据
         async function loadData() {
             try {
-                const response = await fetch('data.json');
+                const response = await fetch('/api/data');
                 siteData = await response.json();
                 renderPage();
             } catch (error) {

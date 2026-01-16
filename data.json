@@ -1,18 +1,18 @@
 {
   "hometowns": [
-    "经楼镇22",
+    "经楼镇",
     "新家乡"
   ],
   "banner": {
-    "imageUrl": "https://cdn.jsdelivr.net/gh/wenjunlu610-hue/Myhome_img_url/jlz_banner1.jpg",
-    "subtitle": "一座城 · 一段情 · 一辈子",
-    "title": "万家灯火，最忆是乡愁",
+    "imageUrl": "/uploads/1768552918738-724752644.jpg",
+    "subtitle": "临清木帮故里  五经书香千年",
+    "title": "一一好客经楼欢迎您",
     "decorationText": "瑞雪丰年"
   },
   "audioStory": {
     "title": "藏龙宝地——经楼镇",
-    "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    "discImageUrl": "https://cdn.jsdelivr.net/gh/wenjunlu610-hue/Myhome_img_url/jlz_au_img1.jpg"
+    "audioUrl": "/uploads/1768552976914-74029661.mp3",
+    "discImageUrl": "/uploads/1768552930734-66112309.jpg"
   },
   "products": [
     {
@@ -20,7 +20,7 @@
       "name": "经楼·横岗奇面",
       "description": "每一口都是家乡的味道",
       "price": 35,
-      "imageUrl": "https://cdn.jsdelivr.net/gh/wenjunlu610-hue/Myhome_img_url/qimian1.jpg",
+      "imageUrl": "/uploads/1768552940992-254979242.jpg",
       "tag": "原生态",
       "qrcodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=product1"
     },
@@ -29,7 +29,7 @@
       "name": "经楼·窑里麻糍",
       "description": "传统土法，地道年味",
       "price": 35,
-      "imageUrl": "https://cdn.jsdelivr.net/gh/wenjunlu610-hue/Myhome_img_url/maci1.jpg",
+      "imageUrl": "/uploads/1768552950532-618255712.jpg",
       "tag": "",
       "qrcodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=product2"
     }

@@ -1,0 +1,26 @@
+{
+  "name": "myhome_jinglou",
+  "version": "1.0.0",
+  "description": "Myhome_img",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wenjunlu610-hue/Myhome_jinglou.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wenjunlu610-hue/Myhome_jinglou/issues"
+  },
+  "homepage": "https://github.com/wenjunlu610-hue/Myhome_jinglou#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "multer": "^2.0.2"
+  }
+}

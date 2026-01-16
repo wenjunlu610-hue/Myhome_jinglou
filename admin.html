@@ -47,8 +47,16 @@
             <h2 class="text-lg font-bold text-stone-800 mb-4">Banner管理</h2>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs text-stone-500 mb-1">Banner图片URL</label>
-                    <input type="text" id="banner-image-url" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <label class="block text-xs text-stone-500 mb-1">Banner图片</label>
+                    <div class="mb-2">
+                        <input type="text" id="banner-image-url" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="图片URL">
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="file" id="banner-image-file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'banner-image-url')">
+                        <label for="banner-image-file" class="bg-stone-100 px-3 py-1 rounded-lg text-xs text-stone-600 hover:bg-stone-200 transition-colors cursor-pointer">选择图片</label>
+                        <img id="banner-image-preview" src="" alt="预览" class="max-h-12 max-w-24 object-cover rounded" style="display: none;">
+                        <span id="banner-image-name" class="text-xs text-stone-500"></span>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs text-stone-500 mb-1">Banner副标题</label>
@@ -74,12 +82,27 @@
                     <input type="text" id="audio-title" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-stone-500 mb-1">音频URL</label>
-                    <input type="text" id="audio-url" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <label class="block text-xs text-stone-500 mb-1">音频文件</label>
+                    <div class="mb-2">
+                        <input type="text" id="audio-url" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="音频URL">
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="file" id="audio-file" accept="audio/*" class="hidden" onchange="handleFileUpload(this, 'audio-url')">
+                        <label for="audio-file" class="bg-stone-100 px-3 py-1 rounded-lg text-xs text-stone-600 hover:bg-stone-200 transition-colors cursor-pointer">选择音频</label>
+                        <span id="audio-file-name" class="text-xs text-stone-500"></span>
+                    </div>
                 </div>
                 <div>
-                    <label class="block text-xs text-stone-500 mb-1">唱片机图片URL</label>
-                    <input type="text" id="disc-image-url" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <label class="block text-xs text-stone-500 mb-1">唱片机图片</label>
+                    <div class="mb-2">
+                        <input type="text" id="disc-image-url" class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="图片URL">
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="file" id="disc-image-file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'disc-image-url')">
+                        <label for="disc-image-file" class="bg-stone-100 px-3 py-1 rounded-lg text-xs text-stone-600 hover:bg-stone-200 transition-colors cursor-pointer">选择图片</label>
+                        <img id="disc-image-preview" src="" alt="预览" class="max-h-12 max-w-24 object-cover rounded" style="display: none;">
+                        <span id="disc-image-name" class="text-xs text-stone-500"></span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -124,12 +147,12 @@
         // 加载数据
         async function loadData() {
             try {
-                const response = await fetch('data.json');
+                const response = await fetch('/api/data');
                 siteData = await response.json();
                 renderForm();
             } catch (error) {
                 console.error('加载数据失败:', error);
-                showStatus('加载数据失败，请检查文件是否存在', false);
+                showStatus('加载数据失败，请检查服务器是否运行', false);
             }
         }
 
@@ -226,16 +249,32 @@
                                    onchange="updateProductField(${index}, 'tag', this.value)">
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-xs text-stone-500 mb-1">图片URL</label>
-                            <input type="text" value="${product.imageUrl}" 
-                                   class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                                   onchange="updateProductField(${index}, 'imageUrl', this.value)">
+                            <label class="block text-xs text-stone-500 mb-1">产品图片</label>
+                            <div class="mb-2">
+                                <input type="text" value="${product.imageUrl}" 
+                                       class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                                       onchange="updateProductField(${index}, 'imageUrl', this.value)" placeholder="图片URL">
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="file" id="product-image-file-${index}" accept="image/*" class="hidden" onchange="handleProductFileUpload(this, ${index}, 'imageUrl')">
+                                <label for="product-image-file-${index}" class="bg-stone-100 px-3 py-1 rounded-lg text-xs text-stone-600 hover:bg-stone-200 transition-colors cursor-pointer">选择图片</label>
+                                <img src="${product.imageUrl || ''}" alt="预览" class="max-h-12 max-w-24 object-cover rounded" ${product.imageUrl ? '' : 'style="display: none;"'}>
+                                <span class="text-xs text-stone-500"></span>
+                            </div>
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-xs text-stone-500 mb-1">二维码URL</label>
-                            <input type="text" value="${product.qrcodeUrl || ''}" 
-                                   class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                                   onchange="updateProductField(${index}, 'qrcodeUrl', this.value)">
+                            <label class="block text-xs text-stone-500 mb-1">产品二维码</label>
+                            <div class="mb-2">
+                                <input type="text" value="${product.qrcodeUrl || ''}" 
+                                       class="w-full p-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                                       onchange="updateProductField(${index}, 'qrcodeUrl', this.value)" placeholder="二维码URL">
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="file" id="product-qrcode-file-${index}" accept="image/*" class="hidden" onchange="handleProductFileUpload(this, ${index}, 'qrcodeUrl')">
+                                <label for="product-qrcode-file-${index}" class="bg-stone-100 px-3 py-1 rounded-lg text-xs text-stone-600 hover:bg-stone-200 transition-colors cursor-pointer">选择二维码</label>
+                                <img src="${product.qrcodeUrl || ''}" alt="二维码预览" class="max-h-12 max-w-24 object-cover rounded" ${product.qrcodeUrl ? '' : 'style="display: none;"'}>
+                                <span class="text-xs text-stone-500"></span>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -308,8 +347,95 @@
             event.target.value = '';
         }
 
-        // 保存数据到本地文件（前端模拟，实际项目中需要后端支持）
-        function saveData() {
+        // 文件上传函数
+        async function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('文件上传失败:', error);
+                throw error;
+            }
+        }
+
+        // 处理文件上传（普通元素）
+        async function handleFileUpload(fileInput, urlInputId) {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            const urlInput = document.getElementById(urlInputId);
+            const nameSpan = document.getElementById(urlInputId.replace('-url', '-name'));
+            const previewImg = document.getElementById(urlInputId.replace('-url', '-preview'));
+            
+            try {
+                // 显示加载状态
+                showStatus('文件上传中...');
+                
+                // 上传文件
+                const result = await uploadFile(file);
+                
+                if (result.success) {
+                    // 更新URL输入框
+                    urlInput.value = result.fileUrl;
+                    
+                    // 更新文件名显示
+                    if (nameSpan) {
+                        nameSpan.textContent = file.name;
+                    }
+                    
+                    // 更新预览图
+                    if (previewImg) {
+                        previewImg.src = result.fileUrl;
+                        previewImg.style.display = 'block';
+                    }
+                    
+                    showStatus('文件上传成功');
+                } else {
+                    showStatus(result.error || '文件上传失败', false);
+                }
+            } catch (error) {
+                showStatus('文件上传失败，请检查服务器是否运行', false);
+            }
+        }
+
+        // 处理产品文件上传
+        async function handleProductFileUpload(fileInput, productIndex, fieldName) {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            try {
+                // 显示加载状态
+                showStatus('文件上传中...');
+                
+                // 上传文件
+                const result = await uploadFile(file);
+                
+                if (result.success) {
+                    // 更新产品数据
+                    if (siteData && siteData.products) {
+                        siteData.products[productIndex][fieldName] = result.fileUrl;
+                        // 重新渲染产品列表
+                        renderProducts();
+                    }
+                    showStatus('文件上传成功');
+                } else {
+                    showStatus(result.error || '文件上传失败', false);
+                }
+            } catch (error) {
+                showStatus('文件上传失败，请检查服务器是否运行', false);
+            }
+        }
+
+        // 保存数据到后端API
+        async function saveData() {
             try {
                 // 更新Banner数据
                 siteData.banner.imageUrl = bannerImageUrl.value;
@@ -322,22 +448,25 @@
                 siteData.audioStory.audioUrl = audioUrl.value;
                 siteData.audioStory.discImageUrl = discImageUrl.value;
 
-                // 创建下载链接
-                const dataStr = JSON.stringify(siteData, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'data.json';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
+                // 发送POST请求到后端API
+                const response = await fetch('/api/data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(siteData)
+                });
 
-                showStatus('数据已成功导出，请将文件保存到项目目录中替换原data.json文件');
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStatus('数据保存成功');
+                } else {
+                    showStatus(result.error || '保存数据失败', false);
+                }
             } catch (error) {
                 console.error('保存数据失败:', error);
-                showStatus('保存数据失败，请检查浏览器控制台', false);
+                showStatus('网络请求失败，请检查服务器是否运行', false);
             }
         }
 
