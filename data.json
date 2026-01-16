@@ -22,7 +22,7 @@
       "price": 35,
       "imageUrl": "/uploads/1768552940992-254979242.jpg",
       "tag": "原生态",
-      "qrcodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=product1"
+      "qrcodeUrl": "/uploads/1768563080070-697922507.jpg"
     },
     {
       "id": 2,
@@ -30,8 +30,8 @@
       "description": "传统土法，地道年味",
       "price": 35,
       "imageUrl": "/uploads/1768552950532-618255712.jpg",
-      "tag": "",
-      "qrcodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=product2"
+      "tag": "古法传承",
+      "qrcodeUrl": "/uploads/1768563087059-727022828.jpg"
     }
   ]
 }

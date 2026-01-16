@@ -149,11 +149,25 @@
         // 加载数据
         async function loadData() {
             try {
-                const response = await fetch('/api/data');
+                // 尝试直接加载本地data.json文件作为后备方案
+                let response;
+                try {
+                    // 优先尝试API请求
+                    response = await fetch('/api/data');
+                    if (!response.ok) {
+                        throw new Error('API请求失败');
+                    }
+                } catch (apiError) {
+                    console.log('API请求失败，尝试加载本地data.json文件');
+                    // 后备方案：直接加载本地data.json文件
+                    response = await fetch('data.json');
+                }
                 siteData = await response.json();
                 renderPage();
             } catch (error) {
                 console.error('加载数据失败:', error);
+                // 添加错误提示
+                alert('数据加载失败，请检查网络连接或服务器状态');
             }
         }
 
